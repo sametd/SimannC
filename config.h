@@ -8,9 +8,9 @@
 //DOC     uzunlugunda parametre aramasi yapiliyor.
 #define ns 40
 //DOC nt: NT parametresi ayni sicaklikta kac defa adim uzunlugu
-//DOC     ayarlanarak NS*N parametre aramasi yapilacagini ifade eder.
+//DOC     ayarlanarak NS*N parametre aramasi yapilacagini ifade eder
 //DOC     Yani NT defa ayarlanan adim uzunluklarinin herbirinde
-//DOC     NS*N defa parametre aramasi yapilir.
+//DOC     NS*N defa parametre aramasi yapilir
 #define nt 40
-//DOC t:  Baslangic sicakligidir.
+//DOC t:  Baslangic sicakligidir
 #define t 5.0
