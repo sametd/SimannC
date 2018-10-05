@@ -1,19 +1,19 @@
+#include <math.h>
+#include <stdio.h>
 #include "config.h"
-#include "stdio.h"
 
 void prtvec(double *vector, int ncols, char *message) {
   int i, j;
   printf("%s\n", message);
   if (ncols > 10) {
     for (i = 0; i < ncols; i++) {
-      printf("%12.5f  ", vector[i]);
-      if ((i % 10) == 9)
-        printf("\n");
+      printf("%12.8f  ", vector[i]);
+      if ((i % 10) == 9) printf("\n");
     }
     printf("\n");
   } else {
     for (j = 0; j < ncols; j++) {
-      printf("%12.5f  ", vector[j]);
+      printf("%12.8f  ", vector[j]);
     }
     printf("\n");
   }
@@ -26,7 +26,7 @@ void prt1() {
   printf("lb(i) < x(i) < ub(i), i = 1, n.\n");
 }
 
-void prt2(double *param, double f) {
+void prt2(double param[Nparam], double f) {
   printf("\n");
   prtvec(param, Nparam, "INITIAL X");
   if (max) {
@@ -36,7 +36,7 @@ void prt2(double *param, double f) {
   }
 }
 
-void prt3(double *xp, double *param, double f) {
+void prt3(double xp[Nparam], double param[Nparam], double f) {
   printf("\n");
   prtvec(param, Nparam, "CURRENT X");
   if (max) {
@@ -48,7 +48,7 @@ void prt3(double *xp, double *param, double f) {
   printf("POINT REJECTED SINCE OUT OF BOUNDS\n");
 }
 
-void prt4(double *xp, double *param, double fp, double f) {
+void prt4(double xp[Nparam], double param[Nparam], double fp, double f) {
   printf("\n");
   prtvec(param, Nparam, "CURRENT X");
   if (max) {
@@ -78,7 +78,7 @@ void prt7() {
   }
 }
 
-void prt8(double *vm, double *xopt, double *param) {
+void prt8(double vm[Nparam], double xopt[Nparam], double param[Nparam]) {
   printf("intermediate results after step length adjustment\n");
   prtvec(vm, Nparam, "NEW STEP LENGTH (VM)");
   prtvec(xopt, Nparam, "CURRENT OPTIMAL X");
@@ -86,12 +86,12 @@ void prt8(double *vm, double *xopt, double *param) {
   printf("\n");
 }
 
-void prt9(double *xopt, double *vm, double fopt, int nup, int ndown, int nrej,
-          int lnobds, int nnew) {
+void prt9(double t, double xopt[Nparam], double vm[Nparam], double fopt,
+          int nup, int ndown, int nrej, int lnobds, int nnew) {
   int totmov;
   totmov = nup + ndown + nrej;
   printf("intermediate results before next temperature reduction\n");
-  printf("CURRENT TEMPERATURE: %12.5f\n", t);
+  printf("CURRENT TEMPERATURE: %12.5e\n", t);
   if (max) {
     printf("MAX FUNCTION VALUE SO FAR: %20.15lf\n", fopt);
     printf("TOTAL MOVES: %8d\n", totmov);
@@ -101,7 +101,7 @@ void prt9(double *xopt, double *vm, double fopt, int nup, int ndown, int nrej,
     printf("OUT OF BOUNDS TRIALS: %8d\n", lnobds);
     printf("NEW MAXIMA THIS TEMPERATURE: %8d\n", nnew);
   } else {
-    printf("MIN FUNCTION VALUE SO FAR: %8.2lf\n", -fopt);
+    printf("MIN FUNCTION VALUE SO FAR: %8.8lf\n", -fopt);
     printf("TOTAL MOVES: %8d\n", totmov);
     printf("DOWNHILL: %8d\n", nup);
     printf("ACCEPTED UPHILL: %8d\n", ndown);
@@ -114,10 +114,11 @@ void prt9(double *xopt, double *vm, double fopt, int nup, int ndown, int nrej,
   printf("\n");
 }
 
-void prt10() { printf("  SA ACHIEVED TERMINATION CRITERIA. IER = 0. \n"); }
+void prt10() { printf("  SA ACHIEVED TERMINATION CRITERIA. \n"); }
 
-void initialPrints(int iprint, double param[Nparam], double vm[Nparam],
-                   double lb[Nparam], double ub[Nparam], double c[Nparam]) {
+void initialPrints(double t, int iprint, double param[Nparam],
+                   double vm[Nparam], double lb[Nparam], double ub[Nparam],
+                   double c[Nparam]) {
   printf("SIMULATED ANNEALING STARTING\n");
   printf("NUMBER OF PARAMETERS:%3d \t MAXIMIZATION: %d \n", Nparam, max);
   printf("INITIAL TEMP:%8.2f \t RT:%8.2f \t EPS:%8.2f \n", t, rt, eps);
@@ -129,4 +130,16 @@ void initialPrints(int iprint, double param[Nparam], double vm[Nparam],
   prtvec(ub, Nparam, "UPPER BOUND");
   prtvec(c, Nparam, "C VECTOR");
   printf("  ****  ****  ****  **** \n");
+}
+
+double exprep(double rdum) {
+  double fnVal;
+  if (rdum > 174.) {
+    fnVal = 3.69;
+  } else if (rdum < -180.) {
+    fnVal = 0.;
+  } else {
+    fnVal = exp(rdum);
+  }
+  return fnVal;
 }
