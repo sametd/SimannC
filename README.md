@@ -4,7 +4,7 @@ Netlib f77 simulated annealing versiyonunun C dilinde yeniden ve geliştirilerek
 
 Su an
 
-gcc -c simannFuncs.c objectiveFunc.c simann.c -Wall && gcc main.c *.o -o opt.x -Wall
+gcc -c simannFuncs.c objectiveFunc.c simann.c -lm -Wall && gcc main.c *.o -o opt.x -lm -Wall
 
 komutu ile derlenebilir. Buraya ekstra test fonksiyonları ve bir Makefile gelebilir, gelmeyebilir de :)
 
