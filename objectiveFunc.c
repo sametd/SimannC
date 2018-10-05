@@ -12,10 +12,8 @@ double objectiveFunc(double param[Nparam]) {
                    .142, .296, .175, .180, .842, .039, .103, .620, .158, .704};
   h = 0.0;
   for (i = 0; i < 20; i++) {
-    h = ((param[0] + param[1] * x2[i] +
-          (param[1] * param[1]) * x3[i] - y[i]) *
-         (param[0] + param[1] * x2[i] +
-          (param[1] * param[1]) * x3[i] - y[i])) +
+    h = ((param[0] + param[1] * x2[i] + (param[1] * param[1]) * x3[i] - y[i]) *
+         (param[0] + param[1] * x2[i] + (param[1] * param[1]) * x3[i] - y[i])) +
         h;
   }
   return h;
