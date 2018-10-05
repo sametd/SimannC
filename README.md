@@ -6,4 +6,6 @@ Su an
 
 gcc -c simannFuncs.c objectiveFunc.c simann.c -Wall && gcc main.c *.o -o opt.x -Wall
 
-komutu ile derlenebilir
+komutu ile derlenebilir. Buraya ekstra test fonksiyonları ve bir Makefile gelebilir, gelmeyebilir de :)
+
+Samet.
