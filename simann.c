@@ -61,6 +61,8 @@ void simann(double *param, double *fval) {
   for (i = 0; i < Nparam; i++) {
     xopt[i] = param[i];
     nacp[i] = 0;
+  }
+  for (i = 0; i < neps; i++) {
     fstar[i] = 1.;
   }
   // t 0 veya negatifse programi durduruyorum, hata mesaji veriyorum
